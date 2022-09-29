@@ -1,6 +1,9 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+var minLength = 8;
+var maxLength = 128;
+
 // global variables.
 var lowercaseString = 'abcdefghijklmnopqrstuvwxyz'; // 26
 var uppercaseString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // 26
@@ -20,9 +23,9 @@ function getValidLengh () {
   // check if it is a valid number. 
   // if the input is not valid, alert msg and loop until you get a valid one.
   // if user cancels, return null;
-  while ( lengthInput = prompt("lengh of the password? 8 - 128") ) {
+  while ( lengthInput = prompt(`Please choose the length of the password. (${minLength} - ${maxLength})`) ) {
     
-    if ( lengthInput >= 8 && lengthInput <= 128 ) {
+    if ( lengthInput >= minLength && lengthInput <= maxLength ) {
         console.log(`Valid input inserted: ${lengthInput}`);
         break; 
     } else {
