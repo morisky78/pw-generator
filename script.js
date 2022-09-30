@@ -30,28 +30,31 @@ function getValidLengh () {
         break; 
     } else {
       alert("OOPS! Please give me a valid number.");
+      console.log("Error: User didn't select any criteria");
     }
   }
   return lengthInput;
 }
 
-// this will store the boolean values and return if it is valid inputs.
-// this will return false when user select no for all char type
-function getValidCharCriteria() {
-  // get boolean inputs ;
-  includeLow = confirm("Do you want to include lowercase letters?");
-  console.log("lowercase? "+ includeLow);
-  includeUpp = confirm("Do you want to include uppercase letters?");
-  console.log("uppercase? "+includeUpp);
-  includeNum = confirm("Do you want to include numbers?");
-  console.log("numbers? "+includeNum);
-  includeChar = confirm("Do you want to include special charactors?");
-  console.log("specials? "+includeChar);
-  
-  if (!includeLow && !includeUpp && !includeNum && !includeChar  ) {
-    return false;
-  } else {
-    return true;
+
+function getValidCharCriteria(){
+  // continue ask until user select at least one criteria.
+  while (1){
+    includeLow = confirm("Do you want to include lowercase letters?");
+    console.log("- lowercase? "+ includeLow);
+    includeUpp = confirm("Do you want to include uppercase letters?");
+    console.log("- uppercase? "+includeUpp);
+    includeNum = confirm("Do you want to include numbers?");
+    console.log("- numbers? "+includeNum);
+    includeChar = confirm("Do you want to include special charactors?");
+    console.log("- specials? "+includeChar);
+
+    if (!(includeLow || includeUpp || includeNum  || includeChar) ) {
+      alert( "OOPS! You need to select at least one character type!") ;
+      console.log("Error: User didn't select any criteria");
+    } else {
+      break;
+    }
   }
 }
 
@@ -63,10 +66,7 @@ function generatePassword() {
   // pw will be generated only when user didn't cancel the prompt
   if ( !pwLength )  return null;
 
-  // continue ask until user select at least one criteria.
-  while ( !getValidCharCriteria() ) {
-    alert( "OOPS! You need to select at least one character type!") ;
-  }
+  getValidCharCriteria();
 
   // based on the responses build available pool of charactoers
   var charPool = '';
@@ -74,12 +74,12 @@ function generatePassword() {
   if ( includeUpp ) charPool += uppercaseString;
   if ( includeNum ) charPool += numString;
   if ( includeChar ) charPool += specialString;
-  console.log('totalletters of '+ charPool + 'is '+charPool.length);
+  console.log('Total num of letters in '+ charPool + 'is '+charPool.length);
 
   for (let i = 0; i < pwLength; i++) {
     // generate random number within range of available chars length
     var randomNum = Math.floor(Math.random()*charPool.length);
-    console.log (`R-Num ${i} : ${randomNum}`);
+    // console.log (`R-Num ${i} : ${randomNum}`);
     // get the charactor from the pool and add it to the final password
     finalPassword += charPool[randomNum];
     
