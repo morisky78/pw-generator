@@ -29,15 +29,15 @@ function getValidLengh () {
         console.log(`Valid input inserted: ${lengthInput}`);
         break; 
     } else {
+      console.log("Error: wrong number for length");
       alert("OOPS! Please give me a valid number.");
-      console.log("Error: User didn't select any criteria");
     }
   }
   return lengthInput;
 }
 
 
-function getValidCharCriteria(){
+function getValidCriteria(){
   // continue ask until user select at least one criteria.
   while (1){
     includeLow = confirm("Do you want to include lowercase letters?");
@@ -50,8 +50,8 @@ function getValidCharCriteria(){
     console.log("- specials? "+includeChar);
 
     if (!(includeLow || includeUpp || includeNum  || includeChar) ) {
-      alert( "OOPS! You need to select at least one character type!") ;
       console.log("Error: User didn't select any criteria");
+      alert( "OOPS! You need to select at least one character type!") ;
     } else {
       break;
     }
@@ -63,10 +63,12 @@ function generatePassword() {
 
   var pwLength = getValidLengh(); 
 
-  // pw will be generated only when user didn't cancel the prompt
-  if ( !pwLength )  return null;
+  // If user clicked 'cancel and 'null' returned for the length, do not go further.
+  if ( !pwLength )  {
+    return '';
+  }
 
-  getValidCharCriteria();
+  getValidCriteria();
 
   // based on the responses build available pool of charactoers
   var charPool = '';
@@ -74,15 +76,13 @@ function generatePassword() {
   if ( includeUpp ) charPool += uppercaseString;
   if ( includeNum ) charPool += numString;
   if ( includeChar ) charPool += specialString;
-  console.log('Total num of letters in '+ charPool + 'is '+charPool.length);
+  console.log('Char Pool : '+ charPool);
 
   for (let i = 0; i < pwLength; i++) {
     // generate random number within range of available chars length
     var randomNum = Math.floor(Math.random()*charPool.length);
-    // console.log (`R-Num ${i} : ${randomNum}`);
     // get the charactor from the pool and add it to the final password
     finalPassword += charPool[randomNum];
-    
   }
 
   return finalPassword;
@@ -91,10 +91,12 @@ function generatePassword() {
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
-
+  if (password != '') {
+    var passwordText = document.querySelector("#password");
+    passwordText.value = password;
+    console.log (`PASSWORD CREATED : ${password}`);
+  }
 }
 
 // Add event listener to generate button
