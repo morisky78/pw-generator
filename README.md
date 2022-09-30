@@ -10,10 +10,10 @@ Click the 'Generate Password' button to generate a random password.
 If you want to see the history of the values inserted, right-click on the page to see 'Inspect' and click 'Console'.
 
 - The URL of the Deployed page:   
-https://morisky78.github.io/Portfolio/  
+https://morisky78.github.io/pw-generator/  
 
 - The URL of the GitHub repository:    
-https://github.com/morisky78/Portfolio  
+https://github.com/morisky78/pw-generator    
 
 
 
